@@ -44,14 +44,14 @@ jackoff_client_t* jackoff_create_client(const char* client_name,
 	client = calloc(1, sizeof(jackoff_client_t));
 	if (!client) {
 		jackoff_error("Failed to allocate memory for Jackoff client.");
-        return NULL;
+		return NULL;
 	}
 	
 	jack_client = jack_client_open(client_name, jack_options, &status);
 	if (!jack_client) {
 		free(client);
 		client_open_failed(status);
-        return NULL;
+		return NULL;
 	}
 	
 	jackoff_info("JACK client registered as \"%s\".",
@@ -130,7 +130,7 @@ static void get_input_port_name(size_t total, size_t index, char* buffer,
 }
 
 int jackoff_activate_client(jackoff_client_t* client) {
-    return jack_activate(client->jack_client);
+	return jack_activate(client->jack_client);
 }
 
 void jackoff_destroy_client(jackoff_client_t* client) {
@@ -164,10 +164,10 @@ void jackoff_auto_connect_client_ports(jackoff_client_t* client) {
 	size_t i;
 	
 	port_names = jack_get_ports(client->jack_client, NULL, NULL,
-	    JackPortIsOutput);
+		JackPortIsOutput);
 	if (!port_names) {
 		jackoff_error("Failed to get the list of JACK output ports.");
-        return;
+		return;
 	}
 	
 	for (i = 0; port_names[i] != NULL && i < client->channel_count; i++) {

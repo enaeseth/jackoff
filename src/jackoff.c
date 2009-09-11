@@ -142,15 +142,15 @@ int run(size_t port_count, const char** ports, const char* client_name,
 	
 	client = jackoff_create_client(client_name, options, channels, buffer_duration);
 	
-    if (jackoff_activate_client(client) != 0) {
-        jackoff_destroy_client(client);
-        jackoff_error("Failed to activate JACK client.");
-    }
-    
-    signal(SIGTERM, handle_signal);
+	if (jackoff_activate_client(client) != 0) {
+		jackoff_destroy_client(client);
+		jackoff_error("Failed to activate JACK client.");
+	}
+	
+	signal(SIGTERM, handle_signal);
 	signal(SIGINT, handle_signal);
 	signal(SIGHUP, handle_signal);
-    
+	
 	if (port_count == 0) {
 		jackoff_auto_connect_client_ports(client);
 	} else {
@@ -202,22 +202,22 @@ int run(size_t port_count, const char** ports, const char* client_name,
 }
 
 static void handle_signal(int signum) {
-    switch (signum) {
-        case SIGHUP:
-            jackoff_info("Got hangup signal; quitting.");
-            break;
-        case SIGTERM:
-            jackoff_info("Got termination signal; quitting.");
-            break;
-        case SIGINT:
-            jackoff_info("Got interrupt signal; quitting.");
-            break;
-        default:
-            return;
-    }
-    
-    signal(signum, handle_signal);
-    jackoff_shutdown();
+	switch (signum) {
+		case SIGHUP:
+			jackoff_info("Got hangup signal; quitting.");
+			break;
+		case SIGTERM:
+			jackoff_info("Got termination signal; quitting.");
+			break;
+		case SIGINT:
+			jackoff_info("Got interrupt signal; quitting.");
+			break;
+		default:
+			return;
+	}
+	
+	signal(signum, handle_signal);
+	jackoff_shutdown();
 }
 
 static const char* short_options = "an:f:b:c:d:R:p:Svqh";
@@ -234,7 +234,7 @@ static const struct option long_options[] = {
 	{"verbose", no_argument, NULL, 'v'},
 	{"quiet", no_argument, NULL, 'q'},
 	{"help", no_argument, NULL, 'h'},
-    {NULL, 0, NULL, 0}
+	{NULL, 0, NULL, 0}
 };
 
 int main(int argc, char* argv[]) {
@@ -313,8 +313,8 @@ int main(int argc, char* argv[]) {
 		jackoff_error("unknown output format \"%s\"", format_name);
 	}
 	
-    return run(0, NULL, client_name, filename, output_format, bitrate,
-        channels, buffer_duration, duration, jack_options);
+	return run(0, NULL, client_name, filename, output_format, bitrate,
+		channels, buffer_duration, duration, jack_options);
 }
 
 static void show_usage_info() {

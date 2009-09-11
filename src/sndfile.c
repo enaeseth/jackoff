@@ -57,7 +57,7 @@ jackoff_encoder_t* jackoff_create_sndfile_encoder(jackoff_client_t* client,
 	encoder = calloc(1, sizeof(sndfile_encoder_t));
 	if (!encoder) {
 		jackoff_error("Failed to allocate memory for libsndfile encoder.");
-        return NULL;
+		return NULL;
 	}
 	
 	encoder->info.format = format->options;
@@ -80,13 +80,13 @@ jackoff_encoder_t* jackoff_create_sndfile_encoder(jackoff_client_t* client,
 static jackoff_session_t* jackoff_sndfile_open(jackoff_client_t* client,
 	jackoff_encoder_t* base_encoder, const char* file_path)
 {
-    sndfile_encoder_t* encoder = (sndfile_encoder_t*) base_encoder;
+	sndfile_encoder_t* encoder = (sndfile_encoder_t*) base_encoder;
 	sndfile_session_t* session;
 	
 	session = calloc(1, sizeof(sndfile_session_t));
 	if (!session) {
 		jackoff_error("Failed to allocate a libsndfile-based session.");
-        return NULL;
+		return NULL;
 	}
 	
 	session->channel_buffers = calloc(client->channel_count,
@@ -104,7 +104,7 @@ static jackoff_session_t* jackoff_sndfile_open(jackoff_client_t* client,
 		return NULL;
 	}
 	
-    jackoff_debug("Created a new libsndfile session recording to \"%s\".",
+	jackoff_debug("Created a new libsndfile session recording to \"%s\".",
 		file_path);
 	return (jackoff_session_t*) session;
 }
@@ -178,7 +178,7 @@ static long jackoff_sndfile_write(const jackoff_session_t* base_session) {
 	}
 	
 	frames_written = sf_writef_float(session->sndfile,
-        session->interleaved_buffer, read_size);
+		session->interleaved_buffer, read_size);
 	if (frames_written != read_size) {
 		jackoff_warn("Failed to write audio to disk: %s",
 			sf_strerror(session->sndfile));
