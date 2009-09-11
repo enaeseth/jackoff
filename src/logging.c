@@ -36,6 +36,9 @@ void jackoff_log(jackoff_log_level level, const char* format, ...) {
 	char time_string[64];
 	va_list args;
 	
+	if (level < minimum_logging_level)
+		return;
+	
 	if (!log_output_stream) {
 		log_output_stream = stderr;
 	}
