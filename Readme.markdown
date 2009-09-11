@@ -26,6 +26,26 @@ the first time I've touched C in years.
 [libsndfile]: http://www.mega-nerd.com/libsndfile/
 [rotter]: http://www.aelius.com/njh/rotter/
 
+Usage
+-----
+
+Basic usage of Jackoff is very simple. To record stereo audio from the first
+two JACK ports, encoded in [FLAC][FLAC] format, run:
+
+    jackoff --auto-connect --format flac recording.flac
+    # or, with less typing:
+    jackoff -a -f flac recording.flac
+
+If no format is provided, Jackoff defaults to recording in 16-bit PCM
+[AIFF][AIFF]. Jackoff makes no attempt to guess at the desired format based on
+the extension of the filename it is given.
+
+For more usage information, including a list of supported output formats, run
+`jackoff --help`.
+
+[aiff]: http://en.wikipedia.org/wiki/Audio_Interchange_File_Format
+[flac]: http://en.wikipedia.org/wiki/Free_Lossless_Audio_Codec
+
 License
 -------
 
