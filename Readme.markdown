@@ -9,7 +9,9 @@ to record audio from JACK and save it to file. The main differences are:
 
   - No file rotation. Rotter starts writing to a different file every hour, but
     Jackoff does not include this behavior. You pass it the name of a file you
-    wish to write to and Jackoff writes to it until it terminates.
+    wish to write to and Jackoff writes to it until it terminates. If scheduled
+    recording is desired, Jackoff can be controlled by the
+    [Permanence][permanence] recording scheduler daemon.
   - Automatic shutdown. You can instruct Jackoff to only record for a certain
     number of seconds, after which Jackoff will stop recording and exit.
   - No support for writing MP2 or MP3 files.
@@ -25,6 +27,7 @@ the first time I've touched C in years.
 [jack]: http://www.jackaudio.org/
 [libsndfile]: http://www.mega-nerd.com/libsndfile/
 [rotter]: http://www.aelius.com/njh/rotter/
+[permanence]: http://github.com/enaeseth/permanence
 
 Usage
 -----
