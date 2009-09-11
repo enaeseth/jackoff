@@ -64,7 +64,6 @@ jackoff_format_t available_formats[] = {
 volatile int running = 0;
 
 static void handle_signal(int signum);
-static void run_session(jackoff_encoder_t* encoder, const char* file_path);
 static void show_usage_info();
 
 jackoff_format_t* jackoff_get_output_format(const char* name) {
