@@ -7,7 +7,7 @@ AC_CANONICAL_SYSTEM
 
 dnl Version 1.7 of automake is recommended
 AM_INIT_AUTOMAKE([1.7])
-AM_CONFIG_HEADER([src/config.h])
+AC_CONFIG_HEADERS([src/config.h])
 
 AC_PROG_CC
 AC_PROG_INSTALL
@@ -31,7 +31,7 @@ AC_HEADER_STDC
 AC_CHECK_HEADERS([stdlib.h string.h unistd.h])
 AC_CHECK_FUNCS( usleep )
 
-CFLAGS="$CFLAGS -Wunused -Wall $JACK_CFLAGS $SNDFILE_CFLAGS"
+CFLAGS="$JACK_CFLAGS $SNDFILE_CFLAGS $CFLAGS -Wunused -Wall"
 LDFLAGS="$LDFLAGS $JACK_LIBS $TWOLAME_LIBS $LAME_LIBS $SNDFILE_LIBS"
 
 AC_OUTPUT([Makefile src/Makefile])

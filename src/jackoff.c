@@ -19,7 +19,7 @@
 
 #include "jackoff.h"
 #include "logging.h"
-#include "sndfile.h"
+#include "driver_sndfile.h"
 
 #include <stdlib.h>
 #include <string.h>

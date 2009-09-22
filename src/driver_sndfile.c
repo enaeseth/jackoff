@@ -18,7 +18,7 @@
  */
 
 #include "jackoff.h"
-#include "sndfile.h"
+#include "driver_sndfile.h"
 #include "logging.h"
 
 #include <stdlib.h>

@@ -3,5 +3,5 @@ jackoff_SOURCES = \
 	jackoff.c \
 	jackoff.h \
 	client.c \
-	sndfile.c \
+	driver_sndfile.c \
 	logging.c
