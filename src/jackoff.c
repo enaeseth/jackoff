@@ -69,6 +69,13 @@ volatile int running = 0;
 static void handle_signal(int signum);
 static void show_usage_info();
 
+struct port_info {
+	size_t count;
+	char** ports;
+};
+
+static int parse_ports(char* port_value, struct port_info* info);
+
 jackoff_format_t* jackoff_get_output_format(const char* name) {
 	jackoff_format_t* format;
 	for (format = &available_formats[0]; format->name; format++) {
@@ -241,7 +248,7 @@ static const struct option long_options[] = {
 };
 
 int main(int argc, char* argv[]) {
-	int auto_connect = 0;
+	int auto_connect = 1;
 	char* client_name = JACKOFF_DEFAULT_CLIENT_NAME;
 	char* format_name = JACKOFF_DEFAULT_FORMAT;
 	char* filename = NULL;
@@ -251,6 +258,9 @@ int main(int argc, char* argv[]) {
 	jackoff_format_t* output_format;
 	jack_options_t jack_options = JackNullOption;
 	time_t duration = 0;
+	struct port_info manual_ports;
+	manual_ports.count = 0;
+	manual_ports.ports = NULL;
 	
 	int option, long_index;
 	while (1) {
@@ -262,7 +272,7 @@ int main(int argc, char* argv[]) {
 		
 		switch (option) {
 			case 'a':
-				// auto_connect = 1;
+				auto_connect = 1;
 				break;
 			case 'n':
 				client_name = optarg;
@@ -283,7 +293,9 @@ int main(int argc, char* argv[]) {
 				buffer_duration = (float) strtod(optarg, NULL);
 				break;
 			case 'p':
-				jackoff_error("manual port specification not yet implemented");
+				if (!parse_ports(optarg, &manual_ports)) {
+					jackoff_error("error parsing manual port list");
+				}
 				break;
 			case 'S':
 				jack_options |= JackNoStartServer;
@@ -316,10 +328,38 @@ int main(int argc, char* argv[]) {
 		jackoff_error("unknown output format \"%s\"", format_name);
 	}
 	
-	return run(0, NULL, client_name, filename, output_format, bitrate,
-		channels, buffer_duration, duration, jack_options);
+	return run(manual_ports.count, (const char**) manual_ports.ports,
+		client_name, filename, output_format, bitrate, channels,
+		buffer_duration, duration, jack_options);
 }
 
 static void show_usage_info() {
 	// to be implemented
+}
+
+static int parse_ports(char* port_value, struct port_info* info) {
+	size_t count = 1;
+	char* c;
+	char* last_start;
+	info->ports = NULL;
+	
+	last_start = port_value;
+	for (c = port_value; *c != 0; c++) {
+		if (*c == ',') {
+			info->ports = realloc(info->ports, count * sizeof(char*));
+			if (!info->ports)
+				return 0;
+			info->ports[count - 1] = last_start;
+			last_start = (c + 1);
+			*c = 0;
+			count++;
+		}
+	}
+	
+	info->ports = realloc(info->ports, count * sizeof(char*));
+	if (!info->ports)
+		return 0;
+	info->ports[count - 1] = last_start;
+	info->count = count;
+	return 1;
 }
