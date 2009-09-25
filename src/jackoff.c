@@ -299,6 +299,7 @@ int main(int argc, char* argv[]) {
 				break;
 			case 'S':
 				jack_options |= JackNoStartServer;
+				break;
 			case 'v':
 				jackoff_set_log_cutoff(JACKOFF_LOG_DEBUG);
 				break;
