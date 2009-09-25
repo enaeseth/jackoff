@@ -125,7 +125,7 @@ static void get_input_port_name(size_t total, size_t index, char* buffer,
 		else
 			strncpy(buffer, "right", buffer_length);
 	} else {
-		snprintf(buffer, buffer_length, "channel %lu", (index + 1));
+		snprintf(buffer, buffer_length, "channel_%lu", (index + 1));
 	}
 }
 
