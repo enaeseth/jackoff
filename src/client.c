@@ -189,7 +189,8 @@ void jackoff_connect_client_port(jackoff_client_t* client, size_t channel,
 	result = jack_connect(client->jack_client, output_port_name,
 		input_port_name);
 	if (result != 0) {
-		jackoff_error("Port connection failed: %d.", result);
+		jackoff_error("Failed to connect with port \"%s\": %d.",
+			output_port_name, result);
 	}
 }
 
