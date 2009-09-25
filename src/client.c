@@ -85,6 +85,8 @@ jackoff_client_t* jackoff_create_client(const char* client_name,
 		client->ring_buffers[i] = buffer;
 	}
 	
+	client->status = 1;
+	
 	jack_on_shutdown(jack_client, jackd_shutdown_callback, client);
 	jack_set_process_callback(jack_client, audio_available_callback, client);
 	
@@ -229,6 +231,8 @@ static int audio_available_callback(jack_nframes_t frame_count, void* arg) {
 static void jackd_shutdown_callback(void* arg) {
 	jackoff_client_t* client = arg;
 	
-	jackoff_warn("Jackoff is quitting now because jackd is shutting down.");
-	client->status = 0;
+	if (client->status) {
+		jackoff_warn("jackd is shutting down; jackoff will now quit.");
+		client->status = 0;
+	}
 }

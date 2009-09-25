@@ -190,6 +190,10 @@ int run(size_t port_count, const char** ports, const char* client_name,
 			client->ring_buffer_overflowed = 0;
 		}
 		
+		if (!client->status) {
+			break;
+		}
+		
 		result = jackoff_write_session(session);
 		if (result == 0) {
 			// Sleep for 1/4th the ring buffer duration.
