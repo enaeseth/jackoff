@@ -253,7 +253,7 @@ int main(int argc, char* argv[]) {
 	char* format_name = JACKOFF_DEFAULT_FORMAT;
 	char* filename = NULL;
 	int bitrate = -1;
-	size_t channels = JACKOFF_DEFAULT_CHANNELS;
+	size_t channels = 0;
 	float buffer_duration = JACKOFF_DEFAULT_RING_BUFFER_DURATION;
 	jackoff_format_t* output_format;
 	jack_options_t jack_options = JackNullOption;
@@ -310,6 +310,13 @@ int main(int argc, char* argv[]) {
 				show_usage_info();
 				return 10;
 		}
+	}
+	
+	if (channels == 0) {
+		if (manual_ports.count > 0)
+			channels = manual_ports.count;
+		else
+			channels = JACKOFF_DEFAULT_CHANNELS;
 	}
 	
 	if (bitrate == -1) {
