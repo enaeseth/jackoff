@@ -68,6 +68,8 @@ volatile int running = 0;
 
 static void handle_signal(int signum);
 static void show_usage_info();
+static void handle_jack_error(const char* message);
+static void handle_jack_info(const char* message);
 
 struct port_info {
 	size_t count;
@@ -145,6 +147,9 @@ int run(size_t port_count, const char** ports, const char* client_name,
 	time_t stop_time = (time_t) 0;
 	size_t i;
 	long result;
+	
+	jack_set_error_function(handle_jack_error);
+	jack_set_info_function(handle_jack_info);
 	
 	if (recording_duration) {
 		stop_time = time(NULL) + recording_duration;
@@ -374,4 +379,12 @@ static int parse_ports(char* port_value, struct port_info* info) {
 	info->ports[count - 1] = last_start;
 	info->count = count;
 	return 1;
+}
+
+static void handle_jack_error(const char* message) {
+	jackoff_warn("JACK: %s", message);
+}
+
+static void handle_jack_info(const char* message) {
+	jackoff_info("JACK: %s", message);
 }
