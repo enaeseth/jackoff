@@ -43,6 +43,12 @@ If no format is provided, Jackoff defaults to recording in 16-bit PCM
 [AIFF][AIFF]. Jackoff makes no attempt to guess at the desired format based on
 the extension of the filename it is given.
 
+To record from a given set of JACK output ports, pass the `-p` (`--ports`) option:
+
+    jackoff -p system:capture_0,system:capture_1 recording.aiff
+
+Jackoff will automatically create a recording with as many channels as output ports it was given to record from.
+
 For more usage information, including a list of supported output formats, run
 `jackoff --help`.
 
