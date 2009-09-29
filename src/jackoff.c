@@ -63,7 +63,7 @@ jackoff_format_t available_formats[] = {
 volatile int running = 0;
 
 static void handle_signal(int signum);
-static void show_usage_info();
+static void show_usage_info(char* prog_name);
 static void handle_jack_error(const char* message);
 static void handle_jack_info(const char* message);
 
@@ -312,7 +312,7 @@ int main(int argc, char* argv[]) {
 				jackoff_set_log_cutoff(JACKOFF_LOG_WARNING);
 				break;
 			default:
-				show_usage_info();
+				show_usage_info(argv[0]);
 				return 10;
 		}
 	}
@@ -346,8 +346,36 @@ int main(int argc, char* argv[]) {
 		buffer_duration, duration, jack_options);
 }
 
-static void show_usage_info() {
-	// to be implemented
+static void show_usage_info(char* prog_name) {
+	jackoff_format_t* format;
+	
+	printf("%s\n\n", PACKAGE_STRING);
+	printf("Usage: %s [options] <output filename>\n", prog_name);
+	printf("  -a, --auto-connect                  automatically connect "
+		"JACK ports\n");
+	printf("  -p PORTS, --ports=PORTS             comma-separated list of "
+		"JACK input ports\n");
+	printf("                                      to record from\n");
+	printf("  -n, --client-name                   JACK client name\n");
+	printf("  -f FORMAT, --format=FORMAT          output format\n");
+	printf("  -c CHANNELS, --channels=CHANNELS    number of channels\n");
+	printf("  -d SECONDS, --duration=SECONDS      stop recording after the "
+		"given time\n");
+	printf("  -R SECONDS, --buffer=SECONDS        length of the ring "
+		"buffer\n");
+	printf("  -S, --no-start-server               don't start jackd if it "
+		"isn't running\n");
+	printf("  -v, --verbose                       include debug output\n");
+	printf("  -q, --quiet                         don't say a lot\n");
+	printf("  -h, --help                          show this help and exit\n");
+	
+	printf("\nSupported audio output formats:\n");
+	for (format = &available_formats[0]; format->name; format++) {
+		printf("  %-6s       %s", format->name, format->description);
+		if (format == &available_formats[0])
+			printf("     [default]");
+		printf("\n");
+	}
 }
 
 static int parse_ports(char* port_value, struct port_info* info) {
