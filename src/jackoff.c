@@ -354,7 +354,7 @@ static void show_usage_info(char* prog_name) {
 	printf("  -a, --auto-connect                  automatically connect "
 		"JACK ports\n");
 	printf("  -p PORTS, --ports=PORTS             comma-separated list of "
-		"JACK input ports\n");
+		"JACK output ports\n");
 	printf("                                      to record from\n");
 	printf("  -n, --client-name                   JACK client name\n");
 	printf("  -f FORMAT, --format=FORMAT          output format\n");
