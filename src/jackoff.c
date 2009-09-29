@@ -48,14 +48,10 @@ jackoff_format_t available_formats[] = {
 		SF_FORMAT_AU | SF_FORMAT_PCM_16},
 	{"caf32", "Core Audio (32-bit float)", jackoff_create_sndfile_encoder,
 		SF_FORMAT_AU | SF_FORMAT_FLOAT},
-#ifdef SF_FORMAT_FLAC
 	{"flac", "FLAC (16-bit PCM)", jackoff_create_sndfile_encoder,
 		SF_FORMAT_FLAC | SF_FORMAT_PCM_16},
-#endif
-#ifdef SF_FORMAT_VORBIS
 	{"vorbis", "Ogg Vorbis", jackoff_create_sndfile_encoder,
 		SF_FORMAT_OGG | SF_FORMAT_VORBIS},
-#endif
 	{"wav", "WAV (16-bit PCM)", jackoff_create_sndfile_encoder,
 		SF_FORMAT_WAV | SF_FORMAT_PCM_16},
 	{"wav32", "WAV (32-bit float)", jackoff_create_sndfile_encoder,
