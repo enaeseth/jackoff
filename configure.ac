@@ -1,6 +1,6 @@
 AC_PREREQ(2.57)
 
-AC_INIT([Jackoff], [0.1], [Eric Naeseth<enaeseth@gmail.com>], [jackoff], [http://github.com/enaeseth/jackoff])
+AC_INIT([Jackoff], [0.1.1], [Eric Naeseth<enaeseth@gmail.com>], [jackoff], [http://github.com/enaeseth/jackoff])
 
 AC_CONFIG_SRCDIR([src/jackoff.c])
 AC_CANONICAL_SYSTEM
