@@ -112,7 +112,7 @@ static void client_open_failed(jack_status_t status)
 	} else if (status & JackVersionError) {
 		jackoff_error("%s: protocol version mismatch.", prefix);
 	} else {
-		jackoff_error("%s: operation failed (0x%04X).", prefix);
+		jackoff_error("%s: operation failed (0x%04X).", prefix, status);
 	}
 }
 
