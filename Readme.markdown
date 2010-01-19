@@ -17,9 +17,6 @@ to record audio from JACK and save it to file. The main differences are:
   - No support for writing MP2 or MP3 files.
   - Records an arbitrary number of channels. Rotter can only record mono or
     stereo audio.
-  - Jackoff does not yet support being given specific JACK ports to record
-    from; it simply takes the first output ports it finds up to the desired
-    number of audio channels.
 
 This should certainly be considered alpha-quality software, given that this is
 the first time I've touched C in years.
@@ -60,7 +57,7 @@ License
 
 Jackoff is made available under the terms of the GNU General Public License.
 
-Copyright © 2009 [Eric Naeseth][copyright_holder]
+Copyright © 2009-2010 [Eric Naeseth][copyright_holder]
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
